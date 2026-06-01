@@ -53,34 +53,74 @@ hr{
     padding: 10px;
 }
 
-@media(max-width:400px){
+@media(max-width:600px){
     #form{
         padding:1em;
         font-size:16px;
+    }
 
+    .list-div {
+        min-height: 100vh;              /* ✅ always at least full screen */
+        height: auto;                   /* ✅ grow with content */
+        background-image: url("./images/thought-catalog-o0Qqw21-0NI-unsplash.jpg");
+        background-size: cover;         /* ✅ stretch to fill */
+        background-position: center;    /* ✅ center the image */
+        background-repeat: no-repeat;   /* ✅ no tiling */
+        padding: 0.5em;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
-    .list-div{
-        height: auto;
-        padding: 1em;
-        font-size: 16px;
-    }
-    ul{
+
+    ul {
         width: 100%;
         padding: 0.5em;
         font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
     }
-    h1{
-        font-size:10px
+
+    .list {
+        font-size: 12px;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.7); /* ✅ overlay for readability */
+        display: inline-block;             /* ✅ compact card look */
+        width: 100%;
+        white-space: nowrap;               /* ✅ keep text inline */
+        overflow: hidden;
+        text-overflow: ellipsis;           /* ✅ truncate long text */
     }
-    .sec-header{
+
+    .list p {
+        margin: 0;
+        line-height: 1.2;
+        display: inline;                   /* ✅ inline text */
+    }
+
+    .return, .pay, .delete {
+        font-size: 11px;
+        padding: 0.25em 0.5em;
+        margin-left: 0.5em;
+        display: inline-block;             /* ✅ buttons inline with text */
+    }
+
+    h1 {
+        font-size:10px;
+    }
+
+    .sec-header {
         font-size: 13px;
     }
-    #detail-div{
+
+    .detail-div {
         width: 100%;
         padding:1em;
-
     }
-    #book,#submit{
+
+    #book, #submit {
         width: 100%;
     }
 }

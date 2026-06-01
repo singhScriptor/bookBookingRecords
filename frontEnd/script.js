@@ -11,7 +11,7 @@ async function addBooks(event) {
     try {
         const takeOn = new Date()
         const returnOff = new Date(takeOn.getTime() + 60 * 60 * 1000)
-        const fine = 0
+        let fine = 0
         const now = new Date()
         if (now > returnOff) {
             const late = Math.floor((now - returnOff) / (1000 * 60 * 60))
@@ -78,6 +78,7 @@ async function returnFunction(details, list) {
             list.appendChild(payBtn)
 
             payBtn.addEventListener('click', async () => {
+                await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' })
                 returnBooks.appendChild(list)
                 activeBooks.removeChild(list)
                 await deletefunction(list)
