@@ -1,0 +1,86 @@
+#form{
+    background-image: url(./images/imageForheader.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center;
+    padding: 1em;
+    color: azure;
+    font-size: 20px;
+    max-width: 100%;
+    font-weight: bolder;
+
+}
+.detail-div{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius:5px;
+}
+
+#book{
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+#submit{
+    background-color: cadetblue;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    color: azure;
+}
+.list-div{
+    background-image: url(./images/thought-catalog-o0Qqw21-0NI-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center;
+    padding: 2em;
+    height:100vh;
+
+
+}
+ul{
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+
+}
+
+.sec-header{
+    color: aliceblue;
+}
+hr{
+    padding: 10px;
+}
+
+@media(max-width:400px){
+    #form{
+        padding:1em;
+        font-size:16px;
+
+    }
+    .list-div{
+        height: auto;
+        padding: 1em;
+        font-size: 16px;
+    }
+    ul{
+        width: 100%;
+        padding: 0.5em;
+        font-size: 14px;
+    }
+    h1{
+        font-size:10px
+    }
+    .sec-header{
+        font-size: 13px;
+    }
+    #detail-div{
+        width: 100%;
+        padding:1em;
+
+    }
+    #book,#submit{
+        width: 100%;
+    }
+}
