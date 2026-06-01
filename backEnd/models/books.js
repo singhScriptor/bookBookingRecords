@@ -24,6 +24,11 @@ const books = sequelize.define('books',{
         type:DataTypes.INTEGER,
         allowNull:false,
         defaultValue:0
+    },
+    status:{
+        type:DataTypes.ENUM('active','returned'),
+        allowNull:false,
+        defaultValue:'active',
     }
 },
     {

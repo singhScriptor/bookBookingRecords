@@ -3,8 +3,8 @@ const books = require('../models/books')
 
 const postBooks = async (req,res)=>{
     try{
-        const {name,takeOn,returnOff,fine} = req.body
-        const result = await books.create({name,takeOn,returnOff,fine})
+        const {name,takeOn,returnOff,fine,status} = req.body
+        const result = await books.create({name,takeOn,returnOff,fine,status})
         res.json(result)
     }
     catch(err){
@@ -30,9 +30,9 @@ const getBooks = async(req,res)=>{
 const putBooks = async(req,res)=>{
     try{
         const {id}= req.params
-        const {name,takeOn,returnOff,fine} = req.body
+        const {name,takeOn,returnOff,fine,status} = req.body
 
-        const [updated] = await books.update({name,takeOn,returnOff,fine},{where:{id}})
+        const [updated] = await books.update({name,takeOn,returnOff,fine,status},{where:{id}})
         if(updated){
             //const updatedBook = await books.findByPk(id)
             res.json(updated)
