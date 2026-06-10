@@ -122,7 +122,7 @@ async function reload() {
 
         books.forEach(book => {
             if (book.status === 'active') {
-                // ✅ Only active books get Return button
+                //active books  Return button
                 book.returnOff = new Date(new Date(book.takeOn).getTime() + 60 * 60 * 1000)
                 const now = new Date()
                 if (now > book.returnOff) {
@@ -131,7 +131,7 @@ async function reload() {
                 }
                 displayDetails(book)
             } else {
-                // ✅ Returned books: show final info only
+                //Returned books- will show final details without button
                 let list = document.createElement('li')
                 list.className = 'list bg-info p-2 rounded'
                 list.innerHTML = `
