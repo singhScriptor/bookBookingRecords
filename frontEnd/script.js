@@ -78,7 +78,7 @@ async function returnFunction(details, list) {
             list.appendChild(payBtn)
 
             payBtn.addEventListener('click', async () => {
-                await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' })
+                await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' , fine:details.fine})
                 returnBooks.appendChild(list)
                 activeBooks.removeChild(list)
                 await deletefunction(list)
@@ -86,7 +86,7 @@ async function returnFunction(details, list) {
 
         }
         else {
-            await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' })
+            await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' , fine: details.fine})
             returnBooks.appendChild(list)
             activeBooks.removeChild(list)
             deletefunction(list, details)
@@ -119,25 +119,32 @@ async function reload() {
     try {
         const res = await axios.get('http://localhost:3000/books')
         const books = res.data
+
         books.forEach(book => {
             if (book.status === 'active') {
+                // ✅ Only active books get Return button
+                book.returnOff = new Date(new Date(book.takeOn).getTime() + 60 * 60 * 1000)
+                const now = new Date()
+                if (now > book.returnOff) {
+                    const late = Math.floor((now - book.returnOff) / (1000 * 60 * 60))
+                    book.fine = late * 10
+                }
                 displayDetails(book)
-            }
-            else {
+            } else {
+                // ✅ Returned books: show final info only
                 let list = document.createElement('li')
                 list.className = 'list bg-info p-2 rounded'
                 list.innerHTML = `
-            <p>
-               Book-Name: ${book.name}<br>
-               Book-TakenOn: ${new Date(book.takeOn).toLocaleString()}<br>
-               Book-ReturnDate: ${new Date(book.returnOff).toLocaleString()}<br>
-               Final-Fine: ${book.fine}<br>
-            </p>
-           `
+                    <p>
+                       Book-Name: ${book.name}<br>
+                       Book-TakenOn: ${new Date(book.takeOn).toLocaleString()}<br>
+                       Book-ReturnDate: ${new Date(book.returnOff).toLocaleString()}<br>
+                       Final-Fine: ${book.fine}<br>
+                    </p>
+                `
                 returnBooks.appendChild(list)
-                deletefunction(list, book)
+                deletefunction(list, book) // only Delete button
             }
-
         })
     }
     catch (err) {
