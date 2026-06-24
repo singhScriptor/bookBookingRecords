@@ -1,33 +1,35 @@
 
 const books = require('../models/books')
 
-const postBooks = async (req,res)=>{
+const postBooks = async (req,res,next)=>{
     try{
         const {name,takeOn,returnOff,fine,status} = req.body
         const result = await books.create({name,takeOn,returnOff,fine,status})
         res.json(result)
     }
     catch(err){
-        res.status(500).json({error:err.message})
+        err.statusCode = 500
+        next(err)
     }
 }
 
-const getBooks = async(req,res)=>{
+const getBooks = async(req,res,next)=>{
     try{
         const result = await books.findAll()
         if(result){
             res.status(200).json(result)
         }
         else{
-            res.status(404).json({message:'not found!'})
+            res.status(404).json({ message: "not found!" })
         }
     }
     catch(err){
-        res.status(500).json({error:err.message})
+        err.statusCode = 500
+        next(err)
     }
 }
 
-const putBooks = async(req,res)=>{
+const putBooks = async(req,res,next)=>{
     try{
         const {id}= req.params
         const {name,takeOn,returnOff,fine,status} = req.body
@@ -42,23 +44,25 @@ const putBooks = async(req,res)=>{
         }
     }
     catch(err){
-        res.status(500).json({error:err.message})
+        err.statusCode = 500
+        next(err)
     }
 }
 
-const deleteBooks = async(req,res)=>{
+const deleteBooks = async(req,res,next)=>{
     try{
          const {id} = req.params
          const result = await books.destroy({where:{id}})
         if(result){
-            res.status(200).json({message:'successfully deleted'})
+            res.json({message:'successfully deleted'})
         }
         else{
             res.status(404).json({message:"not found!"})
         }
     }
     catch(err){
-        res.status(500).json({error:err.message})
+        err.statusCode = 500
+        next(err)
     }
 }
 

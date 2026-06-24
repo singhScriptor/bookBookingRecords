@@ -23,6 +23,14 @@ app.use(express.static(path.join(__dirname,'../frontEnd')))
 app.use('/books',routes)
 
 
+app.use((err,req,res,next)=>{
+    console.log(err.stack)
+    const status = err.statusCode || 500
+    const message = err.message || "internal server error"
+    res.status(status).json({error: message})
+})
+
+
 
 db.sync({alter:true})
 .then(()=>{
