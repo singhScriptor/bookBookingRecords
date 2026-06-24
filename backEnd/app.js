@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('./utils/db-connection')
 const cors = require('cors')
+const path = require('path')
 const port = 3000
 
 const app = express()
@@ -11,11 +12,17 @@ app.use(cors())
 
 const routes = require('./routes/bookRouter')
 
-app.get('/',(req,res)=>{
-    res.send('Hey there welcome to my server!')
-})
+app.use(express.static(path.join(__dirname,'../frontEnd')))
+
+
+
+// app.get('/',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'../frontEnd/index.html'))
+// })
 
 app.use('/books',routes)
+
+
 
 db.sync({alter:true})
 .then(()=>{
