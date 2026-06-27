@@ -40,7 +40,8 @@ async function addBooks(event) {
 async function displayDetails(details) {
     try {
         let list = document.createElement('li')
-        list.className = 'list bg-info p-2 rounded '
+        list.className = 'list bg-info p-1 rounded '
+        list.style.marginBottom = '10px'
         list.innerHTML = ` <p>
         Book-Name: ${details.name}<br>
         Book-TakenOn: ${details.takeOn.toLocaleString()}<br>
@@ -141,6 +142,7 @@ async function reload() {
                 //Returned books- will show final details without button
                 let list = document.createElement('li')
                 list.className = 'list bg-info p-2 rounded'
+                list.style.marginBottom = '10px'
                 list.innerHTML = `
                     <p>
                        Book-Name: ${book.name}<br>
