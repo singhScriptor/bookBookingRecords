@@ -73,28 +73,35 @@ async function returnFunction(details, list) {
             payBtn.className = 'pay bg-success border-0 p-2 rounded'
             payBtn.textContent = 'pay'
 
-
             list.appendChild(fineInput)
             list.appendChild(payBtn)
 
             payBtn.addEventListener('click', async () => {
-                await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' , fine:details.fine})
-                returnBooks.appendChild(list)
-                activeBooks.removeChild(list)
-                await deletefunction(list)
+                await processReturn(details, list);
             })
-
+        } else {
+            await processReturn(details, list);
         }
-        else {
-            await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned' , fine: details.fine})
-            returnBooks.appendChild(list)
-            activeBooks.removeChild(list)
-            deletefunction(list, details)
-        }
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err.message)
     }
+}
+
+// Extracted the duplicate logic into one helper function
+async function processReturn(details, list) {
+    await axios.put(`http://localhost:3000/books/${details.id}`, { status: 'returned', fine: details.fine })
+
+    list.innerHTML = `
+        <p>
+           Book-Name: ${details.name}<br>
+           Book-TakenOn: ${new Date(details.takeOn).toLocaleString()}<br>
+           Book-ReturnDate: ${new Date(details.returnOff).toLocaleString()}<br>
+           Final-Fine: ${details.fine}<br>
+        </p>
+    `
+    returnBooks.appendChild(list)
+    // activeBooks.removeChild(list) <-- REMOVED to fix the crash
+    deletefunction(list, details)
 }
 
 function deletefunction(list, details) {
